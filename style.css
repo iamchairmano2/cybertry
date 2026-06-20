@@ -812,3 +812,69 @@
   .dash-panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
   .dash-panel h4 { font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 20px; }
   @media (max-width: 700px) { .two-col-dash { grid-template-columns: 1fr; } .dash-search { width: 140px; } }
+
+/* RESPONSIVE BREAKPOINTS (industry standard) */
+@media (max-width: 1200px) {
+  .page-content { max-width: 960px; padding: 32px; }
+  .hero h1 { max-width: 620px; }
+  .threat-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+}
+
+@media (max-width: 992px) {
+  nav { padding: 14px 28px; }
+  .hero { padding: 48px 20px; }
+  .hero h1 { font-size: clamp(30px, 6.5vw, 56px); }
+  .hero p { max-width: 460px; }
+  .checker-wrap, .register-wrap, .question-card { padding: 28px; }
+  .threat-card { padding: 22px; }
+}
+
+@media (max-width: 768px) {
+  nav { flex-wrap: wrap; gap: 8px; align-items: center; }
+  .nav-links { order: 2; width: 100%; justify-content: center; flex-wrap: wrap; }
+  .nav-btn { padding: 8px 12px; font-size: 13px; }
+  .hero { padding: 36px 18px; min-height: auto; }
+  .hero-stats { flex-direction: column; gap: 14px; margin-top: 28px; }
+  .page-header { padding: 36px 20px 28px; }
+  .page-content { padding: 28px 18px; }
+  .threat-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .shield-svg { width: 90px; height: 90px; }
+  .result-score { font-size: 56px; }
+}
+
+@media (max-width: 600px) {
+  nav { padding: 12px 14px; }
+  .nav-logo { font-size: 18px; }
+  .nav-logo svg { width: 24px; height: 24px; }
+  .nav-links { gap: 6px; }
+  .hero h1 { font-size: clamp(22px, 8vw, 36px); max-width: 100%; }
+  .hero p { font-size: 15px; max-width: 100%; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .threat-grid { grid-template-columns: 1fr; }
+  .threat-card { padding: 18px; border-radius: 10px; }
+  .checker-wrap, .register-wrap { padding: 20px; }
+  .question-card { padding: 18px; }
+  .criteria-list { grid-template-columns: 1fr; }
+  .result-score { font-size: 48px; }
+  .result-desc, .result-breakdown { padding-left: 8px; padding-right: 8px; }
+}
+
+@media (max-width: 480px) {
+  .nav-links { justify-content: center; }
+  .nav-btn { padding: 6px 10px; font-size: 12px; }
+  .hero { padding: 28px 14px; }
+  .hero-ctas { gap: 10px; }
+  .btn-primary, .btn-outline { padding: 12px 18px; font-size: 14px; }
+  .threat-icon { width: 44px; height: 44px; font-size: 20px; }
+  .option-btn { padding: 12px 14px; font-size: 14px; }
+  .option-letter { width: 26px; height: 26px; }
+  .result-score { font-size: 44px; }
+}
+
+@media (max-width: 375px) {
+  .hero-eyebrow { font-size: 11px; }
+  .hero h1 { font-size: 28px; }
+  .stat-num { font-size: 20px; }
+  footer { padding: 20px 12px; }
+  .dash-search { width: 110px; }
+}
