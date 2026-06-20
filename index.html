@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberShield GH — Cybersecurity Awareness & Assessment Tool</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 2L4 6.5V13.5C4 19.3 8.4 24.7 14 26C19.6 24.7 24 19.3 24 13.5V6.5L14 2Z" fill="rgba(255,215,0,0.15)" stroke="#ffd700" stroke-width="1.5"/>
+      <path d="M10 13.5L12.5 16L18 11" stroke="#ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    CyberShield GH
+  </a>
+  <div class="nav-links">
+    <button class="nav-btn active" id="nav-home" onclick="showPage('home')">Home</button>
+    <button class="nav-btn" id="nav-learn" onclick="showPage('learn')">Learn</button>
+    <button class="nav-btn" id="nav-checker" onclick="showPage('checker')">Password Check</button>
+    <button class="nav-btn" id="nav-quiz" onclick="showPage('quiz')">Take Quiz</button>
+    <button class="nav-btn" id="nav-register" onclick="showPage('register')">Register</button>
+    <button class="nav-btn" id="nav-dashboard" onclick="showPage('dashboard')" style="color:var(--cyan);border:1px solid rgba(255,215,0,0.3);border-radius:8px;">⚙ Admin</button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="shield-wrap">
+      <svg class="shield-svg" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M55 8L15 24V52C15 73.5 32.5 93.5 55 99C77.5 93.5 95 73.5 95 52V24L55 8Z" fill="rgba(255,215,0,0.08)" stroke="#ffd700" stroke-width="2"/>
+        <path d="M55 8L15 24V52C15 73.5 32.5 93.5 55 99C77.5 93.5 95 73.5 95 52V24L55 8Z" fill="none" stroke="rgba(255,215,0,0.3)" stroke-width="8" stroke-dasharray="4 6"/>
+        <path d="M40 52L50 62L72 42" stroke="#ffd700" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <p class="hero-eyebrow">// cybersecurity awareness platform</p>
+    <h1>Stay safe online.<br><span>Know the threats.</span></h1>
+    <p>A free cybersecurity awareness and assessment tool built for students and organizations in Ghana. Learn, test yourself, and get your security score.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="showPage('quiz')">Take the Assessment</button>
+      <button class="btn-outline" onclick="showPage('learn')">Learn the Threats</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Threat topics</div></div>
+      <div class="stat"><div class="stat-num">15</div><div class="stat-label">Quiz questions</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Free to use</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- LEARN PAGE -->
+<div id="page-learn" class="page">
+  <div class="page-header">
+    <h2>Learn the Threats</h2>
+    <p>Understand common cybersecurity threats so you can recognize and avoid them. Click any card to learn more.</p>
+  </div>
+  <div class="page-content">
+    <div class="section-label">Common threats</div>
+    <div class="threat-grid" id="threat-grid"></div>
+  </div>
+</div>
+
+<!-- PASSWORD CHECKER PAGE -->
+<div id="page-checker" class="page">
+  <div class="page-header">
+    <h2>Password Strength Checker</h2>
+    <p>Test how strong your password is. No data is stored or sent — everything runs in your browser.</p>
+  </div>
+  <div class="page-content">
+    <div class="checker-wrap">
+      <h3>Check your password</h3>
+      <p>Type a password below to see how strong it is and what you can do to improve it.</p>
+      <div class="pw-input-wrap">
+        <input type="password" class="pw-input" id="pw-input" placeholder="Enter a password to test..." oninput="checkPassword(this.value)">
+        <button class="pw-toggle" onclick="togglePw()" id="pw-toggle-btn">👁</button>
+      </div>
+      <div class="strength-bar-wrap">
+        <div class="strength-label">
+          <span>Strength</span>
+          <span id="strength-text" style="color:var(--muted)">—</span>
+        </div>
+        <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+      </div>
+      <ul class="criteria-list" id="criteria-list">
+        <li id="c-length"><span class="criteria-dot"></span>At least 8 characters</li>
+        <li id="c-upper"><span class="criteria-dot"></span>Uppercase letter</li>
+        <li id="c-lower"><span class="criteria-dot"></span>Lowercase letter</li>
+        <li id="c-number"><span class="criteria-dot"></span>Contains a number</li>
+        <li id="c-symbol"><span class="criteria-dot"></span>Special character (!@#$...)</li>
+        <li id="c-long"><span class="criteria-dot"></span>12+ characters (great!)</li>
+      </ul>
+    </div>
+
+    <div style="max-width:600px; margin: 0 auto;">
+      <div class="section-label">Password tips</div>
+      <div class="threat-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="threat-card" style="cursor:default;">
+          <div class="threat-icon">🔑</div>
+          <h3>Use a passphrase</h3>
+          <p>Combine 4+ random words: <code style="color:var(--cyan);font-family:var(--font-mono);font-size:13px">mango-cloud-seven-lamp</code> is stronger than a short complex password.</p>
+        </div>
+        <div class="threat-card" style="cursor:default;">
+          <div class="threat-icon">🔒</div>
+          <h3>Never reuse passwords</h3>
+          <p>If one site gets hacked and you reuse passwords, all your accounts are at risk. Use a password manager.</p>
+        </div>
+        <div class="threat-card" style="cursor:default;">
+          <div class="threat-icon">📱</div>
+          <h3>Enable 2FA everywhere</h3>
+          <p>Two-factor authentication means even if someone gets your password, they still can't get in without your phone.</p>
+        </div>
+        <div class="threat-card" style="cursor:default;">
+          <div class="threat-icon">🚫</div>
+          <h3>Avoid personal info</h3>
+          <p>Don't use your name, birthday, school name, or phone number. Attackers try these first.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ PAGE -->
+<div id="page-quiz" class="page">
+  <div class="page-header">
+    <h2>Cybersecurity Assessment Quiz</h2>
+    <p>Test your cybersecurity knowledge with 15 questions. You'll get a security score and personalized tips at the end.</p>
+  </div>
+  <div class="page-content">
+    <div class="quiz-wrap" id="quiz-container">
+      <div class="quiz-meta">
+        <span id="q-counter">Question 1 of 15</span>
+        <span id="q-score-live">Score: 0</span>
+      </div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div></div>
+      <div class="question-card">
+        <div class="question-num" id="q-num">Question 01</div>
+        <div class="question-text" id="q-text"></div>
+        <div class="options" id="q-options"></div>
+        <div class="feedback-box" id="q-feedback"></div>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn-primary" id="next-btn" onclick="nextQuestion()" style="display:none">Next question →</button>
+      </div>
+    </div>
+    <div id="results-container" style="display:none">
+      <div class="results-wrap">
+        <svg class="result-shield" id="result-shield" viewBox="0 0 120 120" fill="none">
+          <path d="M60 10L20 28V58C20 80 36 100 60 108C84 100 100 80 100 58V28L60 10Z" fill="rgba(255,215,0,0.08)" stroke="#ffd700" stroke-width="2"/>
+          <text id="result-emoji" x="60" y="72" text-anchor="middle" font-size="36">🏆</text>
+        </svg>
+        <div class="result-score" id="result-score-text">0%</div>
+        <div class="result-label" id="result-label">Calculating...</div>
+        <div class="result-desc" id="result-desc"></div>
+        <div class="result-breakdown">
+          <h4>Score breakdown</h4>
+          <div class="breakdown-item"><span>Correct answers</span><span id="bd-correct" style="color:var(--green)">—</span></div>
+          <div class="breakdown-item"><span>Wrong answers</span><span id="bd-wrong" style="color:var(--red)">—</span></div>
+          <div class="breakdown-item"><span>Total questions</span><span id="bd-total" style="color:var(--cyan)">—</span></div>
+          <div class="breakdown-item"><span>Security grade</span><span id="bd-grade" style="color:var(--amber)">—</span></div>
+        </div>
+        <div class="tips-list">
+          <h4>Your personalized tips</h4>
+          <div id="result-tips"></div>
+        </div>
+        <div class="result-actions">
+          <button class="btn-primary" onclick="restartQuiz()">Retake quiz</button>
+          <button class="btn-outline" onclick="showPage('learn')">Review threats</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER PAGE -->
+<div id="page-register" class="page">
+  <div class="page-header">
+    <h2>Register</h2>
+    <p>Create an account to track your quiz history and get personalized recommendations.</p>
+  </div>
+  <div class="page-content">
+    <div class="register-wrap">
+      <h3>Create your account</h3>
+      <p>Join CyberShield GH and start your cybersecurity journey.</p>
+      <div id="register-form">
+        <div class="form-group">
+          <label class="form-label">Full name</label>
+          <input type="text" class="form-input" id="reg-name" placeholder="e.g. Kofi Mensah">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email address</label>
+          <input type="email" class="form-input" id="reg-email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Organization / School</label>
+          <input type="text" class="form-input" id="reg-org" placeholder="e.g. UPSA, Legon, GCB Bank">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Role</label>
+          <select class="form-select" id="reg-role">
+            <option value="">Select your role</option>
+            <option>Student</option>
+            <option>IT Professional</option>
+            <option>Business owner</option>
+            <option>Employee</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="reg-pw" placeholder="Choose a strong password" oninput="checkRegPw(this.value)">
+          <div style="margin-top:8px; height:4px; background:var(--panel2); border-radius:2px; overflow:hidden;">
+            <div id="reg-pw-bar" style="height:100%; border-radius:2px; width:0%; transition:all 0.3s;"></div>
+          </div>
+        </div>
+        <button class="btn-primary" style="width:100%; margin-top:8px;" onclick="handleRegister()">Create account</button>
+      </div>
+      <div class="register-success" id="register-success">
+        <div class="big-check">✅</div>
+        <h4>Account created!</h4>
+        <p>Welcome to CyberShield GH. You're now registered and ready to start your assessment.</p>
+        <button class="btn-primary" style="margin-top:20px;" onclick="showPage('quiz')">Take the quiz now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- DASHBOARD PAGE -->
+<div id="page-dashboard" class="page">
+  <!-- ADMIN GATE -->
+  <div id="admin-gate-wrap" class="page-content">
+    <div class="admin-gate">
+      <div class="admin-gate-icon">🔐</div>
+      <h3>Admin access</h3>
+      <p>Enter the admin password to view the dashboard.</p>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="admin-pw-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')adminLogin()">
+      </div>
+      <div class="admin-error" id="admin-error"></div>
+      <button class="btn-primary" style="width:100%;margin-top:16px;" onclick="adminLogin()">Login</button>
+      <p style="font-size:12px;color:var(--muted);margin-top:16px;">Admin password: <code style="color:var(--cyan);font-family:var(--font-mono)">admin123</code> &nbsp;·&nbsp; <a href="#" onclick="quickAdminLogin()" style="color:var(--cyan);font-size:12px;">Quick login →</a></p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD CONTENT -->
+  <div id="admin-dashboard-wrap" style="display:none;">
+    <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h2>Admin Dashboard</h2>
+        <p>Quiz participants, scores, and performance overview.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button class="btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="btn-sm" onclick="addSampleData()">＋ Add sample data</button>
+        <button class="btn-sm danger" onclick="adminLogout()">Logout</button>
+      </div>
+    </div>
+    <div class="page-content">
+
+      <!-- KPI ROW -->
+      <div class="dash-kpi-row">
+        <div class="kpi-card c-cyan">
+          <div class="kpi-label">Total participants</div>
+          <div class="kpi-value" id="kpi-total">0</div>
+          <div class="kpi-sub">Quiz attempts recorded</div>
+        </div>
+        <div class="kpi-card c-green">
+          <div class="kpi-label">Average score</div>
+          <div class="kpi-value" id="kpi-avg">—</div>
+          <div class="kpi-sub">Across all attempts</div>
+        </div>
+        <div class="kpi-card c-amber">
+          <div class="kpi-label">Top grade (A)</div>
+          <div class="kpi-value" id="kpi-topgrade">0</div>
+          <div class="kpi-sub">Scored 90% or above</div>
+        </div>
+        <div class="kpi-card c-red">
+          <div class="kpi-label">Need improvement</div>
+          <div class="kpi-value" id="kpi-atrisk">0</div>
+          <div class="kpi-sub">Scored below 55%</div>
+        </div>
+      </div>
+
+      <!-- CHARTS ROW -->
+      <div class="two-col-dash">
+        <div class="dash-panel">
+          <h4>Grade distribution</h4>
+          <div class="grade-chart" id="grade-chart"></div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;">
+            <span style="font-size:12px;color:var(--green)">■ A (90%+)</span>
+            <span style="font-size:12px;color:var(--cyan)">■ B (75–89%)</span>
+            <span style="font-size:12px;color:var(--amber)">■ C (55–74%)</span>
+            <span style="font-size:12px;color:var(--red)">■ D (&lt;55%)</span>
+          </div>
+        </div>
+        <div class="dash-panel">
+          <h4>Participants by role</h4>
+          <div id="role-chart" style="display:flex;flex-direction:column;gap:10px;"></div>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="section-label">All participants</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div class="dash-filter-row" style="margin:0;">
+          <button class="filter-btn active" onclick="filterTable('all',this)">All</button>
+          <button class="filter-btn" onclick="filterTable('A',this)">Grade A</button>
+          <button class="filter-btn" onclick="filterTable('B',this)">Grade B</button>
+          <button class="filter-btn" onclick="filterTable('C',this)">Grade C</button>
+          <button class="filter-btn" onclick="filterTable('D',this)">Grade D</button>
+        </div>
+        <input type="text" class="dash-search" id="dash-search" placeholder="Search name or org..." oninput="renderTable()">
+      </div>
+
+      <div class="dash-table-wrap">
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Organization</th>
+              <th>Role</th>
+              <th>Score</th>
+              <th>Grade</th>
+              <th>Date & time</th>
+            </tr>
+          </thead>
+          <tbody id="dash-tbody"></tbody>
+        </table>
+        <div class="dash-empty" id="dash-empty" style="display:none;">
+          <div class="dash-empty-icon">📋</div>
+          <p>No participants yet. Share the quiz link to start collecting data.</p>
+        </div>
+      </div>
+
+      <div style="font-size:13px;color:var(--muted);text-align:right;" id="table-count"></div>
+    </div>
+  </div>
+</div>
+
+<!-- THREAT MODAL -->
+<div class="modal-overlay" id="threat-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 id="modal-title"></h3>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<footer>Chairmano`s Project</footer>
+
+script src="script.js"></script>
+
+</body>
+</html>
